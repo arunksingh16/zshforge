@@ -22,6 +22,9 @@ j <pattern>       # jump to directories you use often
 git clone https://github.com/arunksingh16/zshforge ~/.zshforge
 cd ~/.zshforge && zsh install.sh
 exec zsh
+
+<img width="1439" height="280" alt="image" src="https://github.com/user-attachments/assets/6f9f76c4-2080-4982-831a-9b18bc74ad49" />
+
 ```
 
 ## Themes
