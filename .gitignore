@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+./plugins/.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+Icon
+
+# Bash / Shell
+*.sh.swp
+*.sh.bak
+*.sh~
+.bash_history
+.bash_sessions/
+.zsh_history
+.zsh_sessions/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/

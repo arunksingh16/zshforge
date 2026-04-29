@@ -12,6 +12,8 @@
 # issue where PATH is incomplete during shell hooks, causing
 # "command not found" for sort/head/rm etc.
 
+zmodload zsh/datetime 2>/dev/null  # provides $EPOCHSECONDS
+
 typeset -g DIRJUMP_DATA="$ZSHFORGE_CACHE/dirjump.dat"
 typeset -g DIRJUMP_MAX=500
 
@@ -23,8 +25,6 @@ _dirjump_track() {
   [[ "$dir" == "$HOME" || "$dir" == "/" ]] && return
 
   local now=$EPOCHSECONDS
-  # Fallback if EPOCHSECONDS not available (older zsh)
-  [[ -z "$now" ]] && now=0
 
   # Read existing data into an associative array
   typeset -A scores timestamps
@@ -58,24 +58,23 @@ _dirjump_track() {
 autoload -U add-zsh-hook
 add-zsh-hook chpwd _dirjump_track
 
-# ── Frecency scoring (used interactively — external cmds OK) ──
+# ── Frecency scoring (used interactively) ─────────────────────
 _dirjump_score() {
   local now=$EPOCHSECONDS
-  [[ -z "$now" ]] && now=$(command date +%s)
 
   local -a results
+  local score ts path age boost final
   while IFS='|' read -r score ts path; do
     [[ -d "$path" ]] || continue
 
-    local age=$(( now - ts ))
-    local boost
+    age=$(( now - ts ))
     if   (( age < 3600 ));   then boost=8
     elif (( age < 86400 ));  then boost=4
     elif (( age < 604800 )); then boost=2
     else                          boost=1
     fi
 
-    local final=$(( score * boost ))
+    final=$(( score * boost ))
     results+=("${final}|${path}")
   done < "$DIRJUMP_DATA"
 
