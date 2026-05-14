@@ -12,6 +12,14 @@ forge() {
     bench)    _forge_cmd_bench "$@" ;;
     update)   _forge_cmd_update "$@" ;;
     edit)     _forge_cmd_edit "$@" ;;
+    pad)
+      if (( $+functions[pad] )); then
+        pad "$@"
+      else
+        forge::error "pad plugin not loaded"
+        forge::log "Add 'pad' to ZSHFORGE_PLUGINS in config (run: forge edit)"
+      fi
+      ;;
     help|*)   _forge_cmd_help "$@" ;;
   esac
 }
@@ -308,6 +316,9 @@ _forge_cmd_help() {
   print -P "  %F{141}forge::history::dedup%f   %F{243}Remove duplicate history entries%f"
   print -P "  %F{141}forge::history::scrub%f   %F{243}Remove sensitive entries from history%f"
   print -P "  %F{141}forge::history::stats%f   %F{243}Show history statistics%f"
+  print -P "  %F{141}forge pad%f              %F{243}Browse per-directory command snippets%f"
+  print -P "  %F{141}forge pad add%f          %F{243}Add a snippet for current directory%f"
+  print -P "  %F{141}forge pad help%f         %F{243}Full pad usage%f"
   echo ""
   print -P "  %F{243}Tip: prefix a command with a space to keep it out of history%f"
   echo ""

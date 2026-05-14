@@ -54,6 +54,34 @@ Fast directory jumping with frecency scoring:
 - `jl` — list all tracked directories with scores
 - `jclean` — remove dead directory entries
 
+### pad
+Per-directory command snippet list — store the commands you keep forgetting:
+- `forge pad` — browse snippets for the current directory (fzf picker)
+- `forge pad -g` — browse all snippets across all directories
+- `forge pad add "label" "cmd"` — add a snippet for the current directory
+- `forge pad add -g "label" "cmd"` — add a global (dir-independent) snippet
+- `forge pad add "label" "cmd" -d "desc"` — add with a short description
+- `forge pad rm` — remove a snippet (fzf picker)
+- `forge pad ls` — list current directory snippets inline
+- `forge pad hint on` — print a dim snippet count when entering a directory
+
+Selected snippets are **pasted to your prompt**, not auto-run — you review before hitting enter.
+
+<img width="1439" alt="pad plugin" src="images/pad.png" />
+
+**Activate:**
+```zsh
+forge edit   # add "pad" to ZSHFORGE_PLUGINS
+exec zsh
+```
+
+**Example:**
+```zsh
+forge pad add "start gateway" "docker run -p 8080:8080 bifrost:latest" -d "AI gateway"
+forge pad add "dev server" "npm run dev" -d "port 3000"
+forge pad        # open fzf picker, select → command lands on prompt
+```
+
 ## Add Your Own Theme
 
 Create `~/.zshforge/themes/mytheme.zsh-theme`:
@@ -89,7 +117,8 @@ Add to config: `forge edit` → add `myplugin` to `ZSHFORGE_PLUGINS`
 │   └── stealth.zsh-theme
 ├── plugins/
 │   ├── history/
-│   └── dirjump/
+│   ├── dirjump/
+│   └── pad/
 ├── bin/
 │   └── forge.zsh          # CLI tool
 └── install.sh

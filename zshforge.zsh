@@ -69,7 +69,7 @@ typeset -g ZSHFORGE_LOAD_MS=$(( _end_ms - ZSHFORGE_START_MS ))
 unset _end_ms
 # ── Startup banner ─────────────────────────────────────────────
 () {
-  local v="0.1.0"
+  local v="0.2.0"
   local c1="\033[38;5;81m"  c2="\033[38;5;141m"  c3="\033[38;5;114m"
   local d="\033[38;5;243m"  b="\033[1m"  r="\033[0m"
 
